@@ -12,7 +12,9 @@ with open("kumacount.txt", "a", encoding="utf-8") as countFile:
         soup = BeautifulSoup(page, "lxml")
 
         for kuma in soup.find_all('div', id="novel_honbun"):
-            charCount = len(kuma.text)
+            clean = str(kuma.text)
+            cleaned = clean.replace("　" , "").replace("。" , "").replace("「" , "").replace("」" , "").replace("\n" , "").replace(" " , "").replace("？" , "").replace("、" , "").replace("・" , "").replace("ー" , "").replace("（" , "").replace("）" , "").replace("～" , "").replace("！" , "")
+            charCount = len(cleaned)
             countFile.write(f"{chapterNum}, {charCount}\n")
             print(f"{chapterNum}, {charCount}, {URL}")
             
